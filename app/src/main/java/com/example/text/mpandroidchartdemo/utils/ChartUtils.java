@@ -12,7 +12,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +27,10 @@ public class ChartUtils {
     public static int dayValue = 0;
     public static int weekValue = 1;
     public static int monthValue = 2;
+    public static long currentTime;
+    public static boolean needRefresh;
+    public static ArrayList<String> monthValuesArray;
+    private static ArrayList<String> monthValuesArray2;
 
     /**
      * 初始化图表
@@ -132,7 +139,7 @@ public class ChartUtils {
         chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return xValuesProcess(valueType)[(int) value]; // 索引越界
+                return xValuesProcess(valueType).get((int) value); // 索引越界
             }
         });
 
@@ -146,25 +153,25 @@ public class ChartUtils {
      * @param valueType 数据类型
      * @return x轴数据
      */
-    private static String[] xValuesProcess(int valueType) {
+    private static ArrayList<String> xValuesProcess(int valueType) {
         String[] week = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
 
         if (valueType == dayValue) { // 今日
-            String[] dayValues = new String[7];
+            ArrayList<String> dayValues = new ArrayList<String>();
             long currentTime = System.currentTimeMillis();
             for (int i = 6; i >= 0; i--) {
-                dayValues[i] = TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_day);
+                dayValues.add(TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_day));
                 currentTime -= (3 * 60 * 60 * 1000);
             }
             return dayValues;
 
         } else if (valueType == weekValue) { // 本周
-            String[] weekValues = new String[7];
+            ArrayList<String> weekValues = new ArrayList<String>();
             Calendar calendar = Calendar.getInstance();
             int currentWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
             for (int i = 6; i >= 0; i--) {
-                weekValues[i] = week[currentWeek - 1];
+                weekValues.add(week[currentWeek - 1]);
                 if (currentWeek == 1) {
                     currentWeek = 7;
                 } else {
@@ -173,15 +180,36 @@ public class ChartUtils {
             }
             return weekValues;
 
-        } else if (valueType == monthValue) { // 本月
-            String[] monthValues = new String[7];
-            long currentTime = System.currentTimeMillis();
-            for (int i = 6; i >= 0; i--) {
-                monthValues[i] = TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month);
-                currentTime -= (4 * 24 * 60 * 60 * 1000);
+        } else if (valueType == monthValue) { // 本月,添加是否要更新的标志位,如果服务器返回全部 x坐标值，可以处理
+            if (needRefresh){
+                return refreshMonyList();
+            }else{
+                return getMonyList();
             }
-            return monthValues;
+
         }
-        return new String[]{};
+        return new ArrayList<String>();
+    }
+
+    public static ArrayList<String> getMonyList() {
+        monthValuesArray = new ArrayList<String>();
+        currentTime = System.currentTimeMillis();
+        for (int i = 0; i <= 6; i++) {
+            monthValuesArray.add(TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month));
+            currentTime -= (4 * 24 * 60 * 60 * 1000);
+        }
+        Collections.reverse(monthValuesArray); // 反转使显示正常
+        return monthValuesArray;
+    }
+
+    public static ArrayList<String> refreshMonyList() {
+        monthValuesArray2 = new ArrayList<String>();
+        currentTime += (7 * 4 * 24 * 60 * 60 * 1000);
+        for (int i = 0; i <= 6; i++) {
+            monthValuesArray2.add(TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month));
+            currentTime -= (4 * 24 * 60 * 60 * 1000);
+        }
+        Collections.reverse(monthValuesArray2); // 反转使显示正常
+        return monthValuesArray2;
     }
 }
