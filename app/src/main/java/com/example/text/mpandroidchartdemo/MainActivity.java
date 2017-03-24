@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private float mCurPosY;
     private List<Entry> values;
     private float mOneItemWidth = 20;
-    private int pager = 0;
+    private int pager = 0; // 索引
     private HashMap<Integer,List<Entry>> hashMap;
     private int mTotalPager; // 真实的页数，不是索引
     private List<Entry> newlist = new ArrayList<>();
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayList<String> listNew = ChartUtils.refreshMonyList();
 //        ChartUtils.monthValuesArray.addAll(listNew);
 
-        ChartUtils.needRefresh = true;
+
 
         Log.e("chris","pager=" + pager + "，mTotalPager=" + mTotalPager );
 
@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         List<Entry> listNextPager = hashMap.get(pager);
+        for (int i = 0; i < listNextPager.size(); i++) {
+            Log.e("chris","listNextPager=" + listNextPager.get(i)+"" );
+        }
 
 
 //        values.add(new Entry(0, 20));
@@ -110,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 //            Log.e("chris","item=" + values.get(i).toString());
 //        }
 
+        ChartUtils.needRefresh = true;
         ChartUtils.notifyDataSetChanged(mLineChart, listNextPager, ChartUtils.monthValue); // 刷新下一页
     }
 
@@ -144,42 +148,42 @@ public class MainActivity extends AppCompatActivity {
         values.add(new Entry(0, 1));
         values.add(new Entry(1, 10));
         values.add(new Entry(2, 20));
-        values.add(new Entry(3, 30));
-        values.add(new Entry(4, 40));
-        values.add(new Entry(5, 50));
-        values.add(new Entry(6, 60));
-
-        values.add(new Entry(0, 15));
-        values.add(new Entry(1, 25));
-        values.add(new Entry(2, 15));
-        values.add(new Entry(3, 35));
-        values.add(new Entry(4, 25));
-        values.add(new Entry(5, 45));
-        values.add(new Entry(6, 55));
-
-        values.add(new Entry(0, 21));
-        values.add(new Entry(1, 20));
-        values.add(new Entry(2, 23));
-        values.add(new Entry(3, 24));
-        values.add(new Entry(4, 25));
-        values.add(new Entry(5, 26));
-        values.add(new Entry(6, 27));
-
-        values.add(new Entry(0, 2));
-        values.add(new Entry(1, 25));
-        values.add(new Entry(2, 35));
-        values.add(new Entry(3, 5));
-        values.add(new Entry(4, 25));
-        values.add(new Entry(5, 45));
-        values.add(new Entry(6, 25));
-
-        values.add(new Entry(0, 33));
-        values.add(new Entry(1, 11));
-        values.add(new Entry(2, 22));
-        values.add(new Entry(3, 44));
-        values.add(new Entry(4, 11));
-        values.add(new Entry(5, 55));
-        values.add(new Entry(6, 22));
+//        values.add(new Entry(3, 30));
+//        values.add(new Entry(4, 40));
+//        values.add(new Entry(5, 50));
+//        values.add(new Entry(6, 60));
+//
+//        values.add(new Entry(0, 15));
+//        values.add(new Entry(1, 25));
+//        values.add(new Entry(2, 15));
+//        values.add(new Entry(3, 35));
+//        values.add(new Entry(4, 25));
+//        values.add(new Entry(5, 45));
+//        values.add(new Entry(6, 55));
+//
+//        values.add(new Entry(0, 21));
+//        values.add(new Entry(1, 20));
+//        values.add(new Entry(2, 23));
+//        values.add(new Entry(3, 24));
+//        values.add(new Entry(4, 25));
+//        values.add(new Entry(5, 26));
+//        values.add(new Entry(6, 27));
+//
+//        values.add(new Entry(0, 2));
+//        values.add(new Entry(1, 25));
+//        values.add(new Entry(2, 35));
+//        values.add(new Entry(3, 5));
+//        values.add(new Entry(4, 25));
+//        values.add(new Entry(5, 45));
+//        values.add(new Entry(6, 25));
+//
+//        values.add(new Entry(0, 33));
+//        values.add(new Entry(1, 11));
+//        values.add(new Entry(2, 22));
+//        values.add(new Entry(3, 44));
+//        values.add(new Entry(4, 11));
+//        values.add(new Entry(5, 55));
+//        values.add(new Entry(6, 22));
 
         sortList(values);
     }
@@ -231,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.e("chris",values.get(totalPager * 7 + i) + "！！！！" );
                     newlist2.add(values.get(totalPager * 7 + i));
                 }
+//                key = key - 1;
                 hashMap.put(key, newlist2);
 
             }else if (totalPager % 7 == 0){ // 没有多的一页
