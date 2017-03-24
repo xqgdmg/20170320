@@ -132,7 +132,7 @@ public class ChartUtils {
         chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return xValuesProcess(valueType)[(int) value];
+                return xValuesProcess(valueType)[(int) value]; // 索引越界
             }
         });
 
