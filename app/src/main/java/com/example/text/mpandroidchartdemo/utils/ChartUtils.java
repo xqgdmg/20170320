@@ -2,6 +2,7 @@ package com.example.text.mpandroidchartdemo.utils;
 
 import android.graphics.Color;
 
+import com.example.text.mpandroidchartdemo.MainActivity;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -13,9 +14,9 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,6 +32,8 @@ public class ChartUtils {
     public static boolean needRefresh;
     public static ArrayList<String> monthValuesArray;
     private static ArrayList<String> monthValuesArray2;
+    private static int pagerSize;
+    private static int pagerNum;
 
     /**
      * 初始化图表
@@ -80,6 +83,10 @@ public class ChartUtils {
         yAxis.setYOffset(-3);
         yAxis.setAxisMinimum(0);
 
+         // add
+//        chart.setScaleXEnabled(false);
+//        chart.setScaleYEnabled(false);
+
         //Matrix matrix = new Matrix();
         // x轴缩放1.5倍
         //matrix.postScale(1.5f, 1f);
@@ -117,7 +124,7 @@ public class ChartUtils {
             // 不显示坐标点的小圆点
             lineDataSet.setDrawCircles(true);
             // 不显示坐标点的数据
-            lineDataSet.setDrawValues(false);
+            lineDataSet.setDrawValues(true);
             // 不显示定位线
             lineDataSet.setHighlightEnabled(false);
 
@@ -191,24 +198,51 @@ public class ChartUtils {
         return new ArrayList<String>();
     }
 
+    /*
+    * 生成月份
+    */
+    public static HashMap<Integer,List<Entry>> hashMap2 = new HashMap<Integer,List<Entry>>();;
     public static ArrayList<String> getMonyList() {
         monthValuesArray = new ArrayList<String>();
         currentTime = System.currentTimeMillis();
-        for (int i = 0; i <= 6; i++) {
+        /*for (int i = 0; i <= 6; i++) {
             monthValuesArray.add(TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month));
             currentTime -= (4 * 24 * 60 * 60 * 1000);
+        }*/
+//        List<Entry> entries = new MainActivity().hashMap.get(0);
+        pagerSize = hashMap2.size();
+        if (pagerSize > 0 ){  // 至少有一页
+            for (int i = 0; i < hashMap2.get(0).size(); i++) {
+                monthValuesArray.add(hashMap2.get(0).get(i).getX() + ""); // 测试用
+            }
+//            pagerNum = pagerNum + 1;
         }
+
+//
         Collections.reverse(monthValuesArray); // 反转使显示正常
         return monthValuesArray;
     }
 
     public static ArrayList<String> refreshMonyList() {
         monthValuesArray2 = new ArrayList<String>();
-        currentTime += (7 * 4 * 24 * 60 * 60 * 1000);
-        for (int i = 0; i <= 6; i++) {
-            monthValuesArray2.add(TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month));
-            currentTime -= (4 * 24 * 60 * 60 * 1000);
+//        currentTime += (7 * 4 * 24 * 60 * 60 * 1000);
+//        for (int i = 0; i <= 6; i++) {
+//            monthValuesArray2.add(TimeUtils.dateToString(currentTime, TimeUtils.dateFormat_month));
+//            currentTime -= (4 * 24 * 60 * 60 * 1000);
+//        }
+
+        if (pagerSize - pagerNum > 0 ){  // 下一页 hashMap2.get(MainActivity.pager).size()
+            for (int i = 0; i < hashMap2.get(MainActivity.pager).size(); i++) {
+//                if (i >= hashMap2.get(MainActivity.pager).size()){
+//                    monthValuesArray2.add("0");
+//                }else {
+                    monthValuesArray2.add(hashMap2.get(MainActivity.pager).get(i).getX() + ""); // 测试用
+//                }
+
+            }
+//            pagerNum = pagerNum + 1;
         }
+
         Collections.reverse(monthValuesArray2); // 反转使显示正常
         return monthValuesArray2;
     }

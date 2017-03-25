@@ -20,13 +20,14 @@ public class MainActivity extends AppCompatActivity {
     private float mPosY;
     private float mCurPosX;
     private float mCurPosY;
-    private List<Entry> values;
+    public List<Entry> values;
     private float mOneItemWidth = 20;
-    private int pager = 0; // 索引
-    private HashMap<Integer,List<Entry>> hashMap;
+    public static int pager = 0; // 索引
+    public HashMap<Integer,List<Entry>> hashMap;
     private int mTotalPager; // 真实的页数，不是索引
     private List<Entry> newlist = new ArrayList<>();
     private List<Entry> newlist2 = new ArrayList<Entry>();;
+    private boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         initListener();
     }
-
 
 
     private void initListener() {
@@ -84,21 +84,36 @@ public class MainActivity extends AppCompatActivity {
 //        ArrayList<String> listNew = ChartUtils.refreshMonyList();
 //        ChartUtils.monthValuesArray.addAll(listNew);
 
-
+         // 实在是找不出问题，直接判断一下
+//        if (values.size() % 7 != 0 && flag == true){
+//            pager = pager - 1;
+//            flag = false;
+//        }
 
         Log.e("chris","pager=" + pager + "，mTotalPager=" + mTotalPager );
 
-        if (mTotalPager - 1 <= pager){  // 没有更多页了，mTotalPager 要转为 索引才能比较
-            Log.e("chris","没有更多页了" );
-            pager = -1;  // pager + 1 返回初始值，不然一直在增加
-            ChartUtils.needRefresh = false;
-            return;
+        if (flag){
+            if (mTotalPager - 1 < pager){  // 没有更多页了，mTotalPager 要转为 索引才能比较
+                Log.e("chris","没有更多页了" );
+                pager = -1;  // pager + 1 返回初始值，不然一直在增加
+                ChartUtils.needRefresh = false;
+                return;
+            }
+        }else{
+            if (mTotalPager - 1 <= pager){  // 没有更多页了，mTotalPager 要转为 索引才能比较
+                Log.e("chris","没有更多页了" );
+                pager = -1;  // pager + 1 返回初始值，不然一直在增加
+                ChartUtils.needRefresh = false;
+                return;
+            }
         }
 
+
         List<Entry> listNextPager = hashMap.get(pager);
-        for (int i = 0; i < listNextPager.size(); i++) {
-            Log.e("chris","listNextPager=" + listNextPager.get(i)+"" );
-        }
+        Log.e("chris","hashMap.size()=" + hashMap.size() +"" );
+//        for (int i = 0; i < hashMap.size(); i++) {
+//            Log.e("chris","listNextPager=" + listNextPager.get(i)+"" );
+//        }
 
 
 //        values.add(new Entry(0, 20));
@@ -137,55 +152,57 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListData() {
         values = new ArrayList<Entry>();
-        values.add(new Entry(0, 1));
-        values.add(new Entry(1, 2));
-        values.add(new Entry(2, 3));
-        values.add(new Entry(3, 4));
-        values.add(new Entry(4, 5));
-        values.add(new Entry(5, 6));
-        values.add(new Entry(6, 7));
+        values.add(new Entry(0.12f, 1));
+        values.add(new Entry(1, 1));
+        values.add(new Entry(2, 1));
+        values.add(new Entry(3, 1));
+        values.add(new Entry(4, 1));
+        values.add(new Entry(5, 1));
+        values.add(new Entry(6, 1));
 
-        values.add(new Entry(0, 1));
-        values.add(new Entry(1, 10));
-        values.add(new Entry(2, 20));
-//        values.add(new Entry(3, 30));
-//        values.add(new Entry(4, 40));
-//        values.add(new Entry(5, 50));
-//        values.add(new Entry(6, 60));
-//
-//        values.add(new Entry(0, 15));
-//        values.add(new Entry(1, 25));
-//        values.add(new Entry(2, 15));
-//        values.add(new Entry(3, 35));
-//        values.add(new Entry(4, 25));
-//        values.add(new Entry(5, 45));
-//        values.add(new Entry(6, 55));
-//
-//        values.add(new Entry(0, 21));
-//        values.add(new Entry(1, 20));
-//        values.add(new Entry(2, 23));
-//        values.add(new Entry(3, 24));
-//        values.add(new Entry(4, 25));
-//        values.add(new Entry(5, 26));
-//        values.add(new Entry(6, 27));
-//
-//        values.add(new Entry(0, 2));
-//        values.add(new Entry(1, 25));
-//        values.add(new Entry(2, 35));
-//        values.add(new Entry(3, 5));
-//        values.add(new Entry(4, 25));
-//        values.add(new Entry(5, 45));
-//        values.add(new Entry(6, 25));
-//
-//        values.add(new Entry(0, 33));
-//        values.add(new Entry(1, 11));
-//        values.add(new Entry(2, 22));
-//        values.add(new Entry(3, 44));
-//        values.add(new Entry(4, 11));
-//        values.add(new Entry(5, 55));
-//        values.add(new Entry(6, 22));
+        values.add(new Entry(0, 2));
+        values.add(new Entry(1, 2));
+        values.add(new Entry(2, 2));
+        values.add(new Entry(3, 2));
+        values.add(new Entry(4, 2));
+        values.add(new Entry(5, 2));
+        values.add(new Entry(6, 2));
+
+        values.add(new Entry(0, 3));
+        values.add(new Entry(1, 3));
+        values.add(new Entry(2, 3));
+        values.add(new Entry(3, 3));
+        values.add(new Entry(4, 3));
+        values.add(new Entry(5, 3));
+        values.add(new Entry(6, 3));
+
+        values.add(new Entry(0, 4));
+        values.add(new Entry(1, 4));
+        values.add(new Entry(2, 4));
+        values.add(new Entry(3, 4));
+        values.add(new Entry(4, 4));
+        values.add(new Entry(5, 4));
+        values.add(new Entry(6, 4));
+
+        values.add(new Entry(0, 5));
+        values.add(new Entry(1, 5));
+        values.add(new Entry(2, 5));
+        values.add(new Entry(3, 5));
+        values.add(new Entry(4, 5));
+        values.add(new Entry(5, 5));
+        values.add(new Entry(6, 5));
+
+        values.add(new Entry(0, 6));
+        values.add(new Entry(1, 6));
+        values.add(new Entry(2, 6));
+        values.add(new Entry(3, 6));
+        values.add(new Entry(4, 6));
+        values.add(new Entry(5, 6));
+        values.add(new Entry(6, 6));
 
         sortList(values);
+
+        ChartUtils.hashMap2.putAll(hashMap); // 模拟拷贝 x 轴 分组后的数据
     }
 
     int key = 0;
@@ -221,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             equals7(values);
             return hashMap;
         }else{ // 多页（判断还有没有多一个）
-            if (totalPager % 7 != 0 ){  // 还有一页不足7 个
+            if (values.size() - totalPager * 7 != 0 ){  // 还有一页不足7 个
                 mTotalPager = totalPager + 1;
 
                  // 前面的整页
@@ -235,12 +252,14 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.e("chris",values.get(totalPager * 7 + i) + "！！！！" );
                     newlist2.add(values.get(totalPager * 7 + i));
                 }
+                flag = true;
 //                key = key - 1;
                 hashMap.put(key, newlist2);
 
-            }else if (totalPager % 7 == 0){ // 没有多的一页
+            }else if (values.size() % 7 == 0){ // 没有多的一页
                 mTotalPager = totalPager;
                 equals7(values);
+                flag = true;
             }
             return hashMap;
         }
