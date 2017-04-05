@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#000000" />
+
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:layout_weight="1"
+        android:horizontalSpacing="7.5dip"
+        android:numColumns="3"
+        android:verticalSpacing="7.5dip" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/tvPreview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="预览"
+            android:textColor="#55ff0000"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/album_finish"
+            android:layout_width="100dp"
+            android:layout_height="34dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="确定"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/tvCancelSelect"
+            android:layout_toLeftOf="@+id/album_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="不选"
+            android:textColor="#55ff0000"
+            android:textSize="14sp" />
+
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/pagerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <!--<com.pigamewallet.activity.weibo.publishpicture.AlbumViewPager-->
+            <!--android:id="@+id/albumviewpager"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:background="#ffffff" />-->
+
+        <RelativeLayout
+            android:id="@+id/album_item_header_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#ffffff">
+
+            <ImageView
+                android:id="@+id/header_bar_photo_back"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="5.0dip"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/header_bar_photo_count"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@id/header_bar_photo_back"
+                android:gravity="center"
+                android:paddingLeft="20dip"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="22.0sp" />
+
+            <TextView
+                android:id="@+id/header_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="30dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_launcher"
+                android:enabled="true"
+                android:gravity="center"
+                android:minWidth="50dip"
+                android:text="完成"
+                android:textColor="#ffffff" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/header_finish"
+                android:background="@mipmap/ic_launcher"
+                android:button="@null"
+                android:checked="false"
+                android:focusable="false" />
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
