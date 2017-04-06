@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 调用自定义相册
+     * 跳转到 LocalAlbumDetailActivity，传入已经选中的图片集合
      */
     private void doPickPhotoFromGallery() {
 
@@ -64,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
             selectImageUrls.add(BitmapHelp.tempSelectBitmap.get(i).getImagePath());
         }
 
-
-        curruState = ImageUtils.REQUEST_CODE_GALLERY;
+        curruState = ImageUtils.REQUEST_CODE_GALLERY; // 4
 
         Intent intent = new Intent(this, LocalAlbumDetailActivity.class);
         intent.putExtra("selectImageUrls",selectImageUrls);
@@ -104,13 +103,16 @@ public class MainActivity extends AppCompatActivity {
     private void notifySystemUpdate(boolean isAdd) {
         MediaScannerConnection.scanFile(this, new String[]{Constant.IMG_PATH}, null, null);
         if (isAdd) {
-            ContentValues localContentValues = new ContentValues();
-            localContentValues.put("_data", cameraFilePath);
-            localContentValues.put("description", "save image ---");
-            localContentValues.put("mime_type", "image/jpeg");
-            ContentResolver localContentResolver = PWalletApplication.getInstance().getContentResolver();
-            Uri localUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            localContentResolver.insert(localUri, localContentValues);
+            ContentValues values = new ContentValues();
+            values.put("_data", cameraFilePath);
+            values.put("description", "save image ---");
+            values.put("mime_type", "image/jpeg");
+
+            ContentResolver contentResolver = PWalletApplication.getInstance().getContentResolver();
+            Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+
+             // 插入一行,就能更新系统相册？
+            contentResolver.insert(uri, values);
         }
     }
 

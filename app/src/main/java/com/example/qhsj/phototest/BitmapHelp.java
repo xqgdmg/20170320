@@ -23,8 +23,7 @@ public class BitmapHelp {
     public static ArrayList<ImageItem> tempSelectBitmap = new ArrayList<ImageItem>();   //选择的图片的临时列表
 
     public static Bitmap revitionImageSize(String path) throws IOException {
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(
-                new File(path)));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(new File(path)));
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(in, null, options);
