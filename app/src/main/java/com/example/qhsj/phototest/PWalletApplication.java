@@ -2,6 +2,8 @@ package com.example.qhsj.phototest;
 
 import android.app.Application;
 
+import com.example.qhsj.utils.LocalImageHelper;
+
 /**
  * Created by Chris on 2017/4/5.
  */

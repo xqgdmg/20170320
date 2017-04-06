@@ -2,6 +2,9 @@ package com.example.qhsj.phototest;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import com.example.qhsj.view.ImageItem;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +19,6 @@ import java.util.ArrayList;
  *
  */
 public class BitmapHelp {
-    public static int max = 0;
 
     public static ArrayList<ImageItem> tempSelectBitmap = new ArrayList<ImageItem>();   //选择的图片的临时列表
 
@@ -44,20 +46,4 @@ public class BitmapHelp {
         return bitmap;
     }
 
-    /**
-     * 检查图片是否已经添加
-     * @param path
-     * @return
-     */
-    public static boolean isImageSelect(String path) {
-        boolean isSelected = false;
-        if (tempSelectBitmap.size() > 0 && !tempSelectBitmap.isEmpty()) {
-            for (ImageItem imageItem : tempSelectBitmap) {
-                if (path.equalsIgnoreCase(imageItem.getImagePath())) {
-                    return true;
-                }
-            }
-        }
-        return isSelected;
-    }
 }

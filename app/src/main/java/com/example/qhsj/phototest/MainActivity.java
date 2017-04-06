@@ -14,6 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.qhsj.utils.Constant;
+import com.example.qhsj.utils.FileUtils;
+import com.example.qhsj.utils.ImageUtils;
+import com.example.qhsj.utils.LocalImageHelper;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -60,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        curruState = ImageUtils.REQUEST_CODE_GETIMAGE_BYCROP;
+        curruState = ImageUtils.REQUEST_CODE_GALLERY;
 
         Intent intent = new Intent(this, LocalAlbumDetailActivity.class);
         intent.putExtra("selectImageUrls",selectImageUrls);
-        startActivityForResult(intent, ImageUtils.REQUEST_CODE_GETIMAGE_BYCROP);
+        startActivityForResult(intent, ImageUtils.REQUEST_CODE_GALLERY);
     }
 
     /**

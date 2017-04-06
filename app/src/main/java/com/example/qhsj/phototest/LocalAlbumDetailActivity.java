@@ -25,6 +25,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.qhsj.utils.Constant;
+import com.example.qhsj.utils.FileUtils;
+import com.example.qhsj.utils.LocalImageHelper;
+import com.example.qhsj.utils.NativeImageLoader;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,10 +90,6 @@ public class LocalAlbumDetailActivity extends Activity implements  View.OnClickL
 
 
     private void init() {
-//        if(!LocalImageHelper.getInstance().isInited()){
-//            finish();
-//            return;
-//        }
 
         finish = (TextView) findViewById(R.id.album_finish);
         tvCancelSelect = (TextView) findViewById(R.id.tvCancelSelect);
@@ -120,8 +122,6 @@ public class LocalAlbumDetailActivity extends Activity implements  View.OnClickL
 
                 //获取该文件夹下地所有文件
                 folders = helper.getFolder("所有图片");
-//                Collections.reverse(folders);
-
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -149,9 +149,7 @@ public class LocalAlbumDetailActivity extends Activity implements  View.OnClickL
                                 headerFinish.setEnabled(true);
                             } else {
                                 finish.setText("确定");
-//                                finish.setEnabled(false);
                                 headerFinish.setText("确定");
-//                                headerFinish.setEnabled(false);
                             }
                         }
                     }
@@ -310,7 +308,6 @@ public class LocalAlbumDetailActivity extends Activity implements  View.OnClickL
                     }
                 }
             } catch (Exception e) {
-//                compoundButton.setChecked(false);
             }
         }
 
@@ -442,7 +439,6 @@ public class LocalAlbumDetailActivity extends Activity implements  View.OnClickL
             this.imageView = imageView;
 
             imageView.setImageResource(R.mipmap.ic_launcher);
-//            imageView.setBackgroundColor(getResources().getColor(R.color.grey_4d));
         }
 
         @Override
